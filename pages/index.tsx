@@ -1,5 +1,8 @@
+import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useProgram } from "@thirdweb-dev/react/solana";
 import type { NextPage } from "next";
+import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
 // Default styles that can be overridden by your app
@@ -13,6 +16,35 @@ const Home: NextPage = () => {
   //   your_nft_collection_address,
   //   "nft-collection"
   // );
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState<File>();
+
+  const wallet = useWallet().publicKey;
+  const isConnected = !!wallet;
+
+  const { program, isLoading } = useProgram(
+    "E2EvrNbhCGW4zDCYkbnidZE7HQedzKWpyeQZpXxaxuSH",
+    "nft-collection"
+  );
+
+  const mintNft = async () => {
+    try {
+      if (isLoading) return;
+
+      const mint = await program.mint({
+        name,
+        description,
+        image: file,
+      });
+
+      alert(`NFT minted successfully - ${mint}`);
+    } catch (err) {
+      console.error(err);
+      alert("Error minting NFT!");
+    }
+  };
 
   return (
     <>
@@ -36,6 +68,35 @@ const Home: NextPage = () => {
           </b>
           .
         </p>
+
+        {isConnected && (
+          <div>
+            <div>
+              <input
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                placeholder="Name"
+              />
+            </div>
+            <div>
+              <textarea
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
+                placeholder="Description"
+              />
+            </div>
+            <div>
+              <input
+                type="file"
+                onChange={(e) => setFile(e.target.files![0])}
+              />
+            </div>
+            <div>
+              <button onClick={mintNft}>Mint NFT</button>
+            </div>
+          </div>
+        )}
 
         <WalletMultiButton />
       </div>
