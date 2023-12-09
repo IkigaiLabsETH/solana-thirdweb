@@ -1,13 +1,21 @@
-## Solana frontend started kit
+## Solana starter kit
 
 This template has everything you need to build a web3 app on Solana using the thirdweb SDK.
 
-## Getting Started
+The thirdweb Solana SDK is open source and can be used, but they will no longer be maintaining it.
+The SDK accepts a different RPC URL. The dev should sign up for a paid Solana node provider and provide it to the SDK:
 
-Create a project using this example:
+import { ThirdwebSDK } from "@thirdweb-dev/sdk/solana";
 
-```bash
-npx thirdweb create --template next-typescript-solana-starter
+const sdk = ThirdwebSDK.fromNetwork(
+	"https://YOUR_CUSTOM_SOLANA_RPC_URL",
+  {
+    clientId: "YOUR_CLIENT_ID",
+		secretKey: "YOUR_SECRET_KEY",
+});
+
+## Editing
+
 ```
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
