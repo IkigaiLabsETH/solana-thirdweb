@@ -1,9 +1,6 @@
 ## Solana starter kit
 
-This template has everything you need to build a web3 app on Solana using the thirdweb SDK.
-
-The thirdweb Solana SDK is open source and can be used, but they will no longer be maintaining it.
-The SDK accepts a different RPC URL. The dev should sign up for a paid Solana node provider and provide it to the SDK:
+This template has everything you need to build a web3 app on Solana using the thirdweb SDK. The thirdweb Solana SDK is open source and can be used, but they will no longer be maintaining it. The SDK accepts a different RPC URL. The dev should sign up for a paid Solana node provider and provide it to the SDK:
 
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/solana";
 
